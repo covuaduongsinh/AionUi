@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "보드"
+    "board": "보드",
+    "resizeColumns": "열 너비 조정"
   },
   "warmup": {
     "title": "Waking up the team…",

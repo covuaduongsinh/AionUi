@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "Доска"
+    "board": "Доска",
+    "resizeColumns": "Изменить ширину колонок"
   },
   "warmup": {
     "title": "Waking up the team…",

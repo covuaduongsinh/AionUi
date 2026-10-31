@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "Pano"
+    "board": "Pano",
+    "resizeColumns": "Sütun genişliğini ayarla"
   },
   "warmup": {
     "title": "Waking up the team…",

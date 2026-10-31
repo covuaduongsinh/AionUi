@@ -138,7 +138,8 @@
     "label": "Vue",
     "parallel": "Parallèle",
     "single": "Simple",
-    "board": "Tableau"
+    "board": "Tableau",
+    "resizeColumns": "Redimensionner les colonnes"
   },
   "warmup": {
     "title": "Réveil de l'équipe…",

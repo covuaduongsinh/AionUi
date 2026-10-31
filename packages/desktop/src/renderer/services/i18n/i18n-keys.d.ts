@@ -2882,6 +2882,7 @@ export type I18nKey =
   | 'team.view.board'
   | 'team.view.label'
   | 'team.view.parallel'
+  | 'team.view.resizeColumns'
   | 'team.view.single'
   | 'team.warmup.genericFailedTitle'
   | 'team.warmup.leaderFailedHint'

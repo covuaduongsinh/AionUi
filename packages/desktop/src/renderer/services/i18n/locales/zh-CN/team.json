@@ -105,7 +105,8 @@
     "label": "视图",
     "parallel": "并行",
     "single": "单聊",
-    "board": "看板"
+    "board": "看板",
+    "resizeColumns": "调整列宽"
   },
   "warmup": {
     "title": "正在唤醒团队…",

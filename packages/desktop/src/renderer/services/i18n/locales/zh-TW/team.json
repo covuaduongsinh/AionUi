@@ -105,7 +105,8 @@
     "label": "檢視",
     "parallel": "並行",
     "single": "單聊",
-    "board": "看板"
+    "board": "看板",
+    "resizeColumns": "調整欄寬"
   },
   "warmup": {
     "title": "正在喚醒團隊…",
