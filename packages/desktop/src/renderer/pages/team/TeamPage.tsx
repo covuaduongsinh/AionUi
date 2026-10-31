@@ -45,6 +45,8 @@ import { setCurrentProject } from '@/renderer/pages/conversation/explorer/curren
 import { setCurrentConversation } from '@/renderer/pages/conversation/explorer/currentConversationStore';
 import { getSnapshotConversationProjectId } from '@/renderer/pages/conversation/GroupedHistory/hooks/useConversationListSync';
 import { isBackendHttpError } from '@/common/adapter/httpBridge';
+import TeamColumnResizeHandle from './columnResize/TeamColumnResizeHandle';
+import { useTeamColumnWidths } from './columnResize/useTeamColumnWidths';
 
 type Props = {
   team: TTeam;
@@ -553,6 +555,9 @@ const TeamPageContent: React.FC<TeamPageContentProps> = ({
   const activeAssistant = assistants.find((assistant) => assistant.slot_id === activeSlotId);
   const leadAssistant = assistants.find((assistant) => assistant.role === 'leader');
   const teamRun = useTeamRunView(team.id);
+  // Parallel-view column widths (drag handles between columns), remembered per team.
+  const parallelSlotIds = useMemo(() => assistants.map((assistant) => assistant.slot_id), [assistants]);
+  const columnWidths = useTeamColumnWidths(team.id, parallelSlotIds, () => (assistants.length <= 2 ? 240 : 400));
 
   // 进团队 warmup：以团队会话整体就绪为闸门（ensureSession resolve = 全员成功）。遮罩覆盖对话区。
   // runtimeStatus 是各成员逐个的真实唤醒信号，用于遮罩头像的「唤醒中→点亮」及失败态定位。
@@ -881,7 +886,7 @@ const TeamPageContent: React.FC<TeamPageContentProps> = ({
                 <div
                   ref={scrollContainerRef}
                   className='flex h-full w-full overflow-x-auto overflow-y-hidden [scrollbar-width:none]'
-                  style={{ scrollSnapType: 'x proximity' }}
+                  style={{ scrollSnapType: columnWidths.isDragging ? 'none' : 'x proximity' }}
                 >
                   {assistants.map((assistant, index) => {
                     const isSingle = assistants.length <= 2;
@@ -895,15 +900,12 @@ const TeamPageContent: React.FC<TeamPageContentProps> = ({
                         }}
                         data-slot-id={assistant.slot_id}
                         data-role={isLeaderSlot ? 'leader' : 'member'}
-                        // 列间灰色隔离线：除最后一列外，右侧加一条分隔线，避免多列浅底粘连看不清边界。
-                        className={`relative h-full ${isLastColumn ? '' : 'border-e border-solid border-[color:var(--border-base)]'}`}
+                        className='relative h-full'
                         style={{
-                          // Always flex-grow to fill available space; each slot starts at 400px
-                          // basis so the layout is stable, but spare room is distributed evenly
-                          // instead of leaving empty gaps to the right. When the team is wider
-                          // than the viewport we preserve the 400px floor (prevents shrinking
-                          // into unreadable cards) so horizontal scroll kicks in naturally.
-                          flex: '1 1 400px',
+                          // Default: 400px basis + flex-grow so spare room is shared evenly. Once the user
+                          // drags a column boundary, widths become px-based (grow = basis) and persist per
+                          // team. The min-width floor keeps cards readable and lets horizontal scroll kick in.
+                          flex: columnWidths.getFlex(assistant.slot_id),
                           minWidth: isSingle ? '240px' : '400px',
                           scrollSnapAlign: 'start',
                         }}
@@ -929,6 +931,14 @@ const TeamPageContent: React.FC<TeamPageContentProps> = ({
                           }
                           warmupDisabled={isWarmingUp}
                         />
+                        {/* 列间拖拽把手：取代原静态 border-e，在相邻两列间转移宽度。 */}
+                        {!isLastColumn && (
+                          <TeamColumnResizeHandle
+                            onPointerDown={(e) => columnWidths.startDrag(index, e)}
+                            onKeyDown={(e) => columnWidths.onHandleKeyDown(index, e)}
+                            onReset={columnWidths.reset}
+                          />
+                        )}
                       </div>
                     );
                   })}

@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "Quadro"
+    "board": "Quadro",
+    "resizeColumns": "Redimensionar colunas"
   },
   "warmup": {
     "title": "Waking up the team…",

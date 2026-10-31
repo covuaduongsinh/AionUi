@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "Tablero"
+    "board": "Tablero",
+    "resizeColumns": "Cambiar ancho de columnas"
   },
   "warmup": {
     "title": "Waking up the team…",

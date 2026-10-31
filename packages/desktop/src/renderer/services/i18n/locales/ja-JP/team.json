@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "ボード"
+    "board": "ボード",
+    "resizeColumns": "列の幅を調整"
   },
   "warmup": {
     "title": "Waking up the team…",

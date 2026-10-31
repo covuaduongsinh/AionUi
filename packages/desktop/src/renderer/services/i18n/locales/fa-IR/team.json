@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "تابلو"
+    "board": "تابلو",
+    "resizeColumns": "تغییر عرض ستون‌ها"
   },
   "warmup": {
     "title": "Waking up the team…",

@@ -105,7 +105,8 @@
     "label": "View",
     "parallel": "Parallel",
     "single": "Single",
-    "board": "Board"
+    "board": "Board",
+    "resizeColumns": "Spaltenbreite ändern"
   },
   "warmup": {
     "title": "Waking up the team…",
